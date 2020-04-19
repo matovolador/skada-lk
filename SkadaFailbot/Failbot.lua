@@ -63,6 +63,15 @@ local function onFail(event, who, fatal)
 			end
 			Skada.total.fails = Skada.total.fails + 1
 		end
+		local event_string = event:gsub("%_"," ")
+		if Skada.db.profile.failreportselfonly then
+			DEFAULT_CHAT_FRAME:AddMessage("Skada Fail: ".. who .. " >> " .. event_string)
+		elseif IsRaidLeader() and Skada.db.profile.failreportleaderonly then
+			SendChatMessage("Skada Fail: ".. who .. " >> " .. event_string, "RAID")
+		elseif not Skada.db.profile.failreportleaderonly and not Skada.db.profile.failreportselfonly then
+			SendChatMessage("Skada Fail: ".. who .. " >> " .. event_string, "RAID")
+		end
+		
 	end
 end
 
