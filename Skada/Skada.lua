@@ -833,6 +833,11 @@ local function check_for_join_and_leave()
 
 	-- Mark our last party status.
 	wasinparty = (GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0)
+
+	if is_in_pvp() and Skada.db.profile.hidepvp then
+		Skada:SetActive(false)
+	end
+
 end
 
 function Skada:PARTY_MEMBERS_CHANGED()
