@@ -62,7 +62,8 @@ Skada.defaults = {
 		feed = "",
 		sets = {},
 		total = nil,
-
+		failreportleaderonly=true,
+		failreportselfonly=false,
 		modules = {},
 		columns = {},
 		report = {mode = "Damage", set = "current", channel = "Say", chantype = "preset", number = 10},
@@ -335,7 +336,7 @@ Skada.options = {
 								values=	function() return {[1] = L["Condensed"], [2] = L["Detailed"]} end,
 								get=function() return Skada.db.profile.numberformat end,
 								set=function(self, opt) Skada.db.profile.numberformat = opt end,
-								order=11,
+								order=10,
 							},
 							
 							showranks = {
@@ -348,6 +349,30 @@ Skada.options = {
 							        			Skada.db.profile.showranks = not Skada.db.profile.showranks
 							        			Skada:ApplySettings()
 							        		end,
+							},
+
+							failreportleaderonly = {
+								type="toggle",
+								name="Report Fails If Leader",
+								desc="Reports Fails to raid chat only if you are raid leader.",
+								order=14,
+								get=function() return Skada.db.profile.failreportleaderonly end,
+								set=function()
+									Skada.db.profile.failreportleaderonly = not Skada.db.profile.failreportleaderonly
+									Skada:ApplySettings()
+								end,
+							},
+							
+							failreportselfonly = {
+								type="toggle",
+								name="Report Fails to Self Only",
+								desc="Reports Fails only to self regardless if you are raid leader or not.",
+								order=15,
+								get=function() return Skada.db.profile.failreportselfonly end,
+								set=function()
+									Skada.db.profile.failreportselfonly = not Skada.db.profile.failreportselfonly
+									Skada:ApplySettings()
+								end,
 							},
 
 							datafeed = {
